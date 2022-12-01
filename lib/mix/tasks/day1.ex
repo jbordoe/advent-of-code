@@ -6,7 +6,9 @@ defmodule Mix.Tasks.Day1 do
   use Mix.Task
 
   def run(_) do
-    Aoc22.DayOne.solution("priv/input/day_1.txt")
+    Aoc22.DayOne.solution1("priv/input/day_1.txt")
+    |> IO.puts
+    Aoc22.DayOne.solution2("priv/input/day_1.txt")
     |> IO.puts
   end
 end
