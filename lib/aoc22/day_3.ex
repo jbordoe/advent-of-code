@@ -22,6 +22,7 @@ defmodule Aoc22.Day3 do
     |> Stream.map(fn s ->
       s
       |> String.split_at(Integer.floor_div(String.length(s), 2))
+      |> Tuple.to_list()
       |> compare()
     end)
     |> Enum.sum()
@@ -32,27 +33,17 @@ defmodule Aoc22.Day3 do
     |> File.stream!()
     |> Stream.map(&String.trim_trailing(&1, "\n"))
     |> Stream.chunk_every(3)
-    |> Stream.map(&badge/1)
-    |> Enum.map(&Map.get(@priorities, &1))
+    |> Stream.map(&compare/1)
     |> Enum.sum()
   end
 
-  defp compare({bag1, bag2}) do
-    m1 = MapSet.new(String.graphemes(bag1))
-    m2 = MapSet.new(String.graphemes(bag2))
-
-    MapSet.intersection(m1, m2)
-    |> MapSet.to_list()
-    |> Enum.map(&Map.get(@priorities, &1))
-    |> List.first()
-  end
-
-  defp badge(bags) do
+  defp compare(bags) do
     bags
     |> Enum.map(&String.graphemes/1)
     |> Enum.map(&MapSet.new/1)
     |> Enum.reduce(&MapSet.intersection/2)
     |> MapSet.to_list()
+    |> Enum.map(&Map.get(@priorities, &1))
     |> List.first()
   end
 end
