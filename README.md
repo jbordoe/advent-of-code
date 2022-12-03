@@ -5,7 +5,7 @@ Solutions to https://adventofcode.com/2022
 ## Example
 
 ```
-mix day1
+mix aoc --day=2
 ```
 
 ## Tests
