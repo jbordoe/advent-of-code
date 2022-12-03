@@ -11,4 +11,3 @@ defmodule Aoc22.Day3.Test do
     assert 70 == Day3.solution2("test/fixtures/day_3.txt")
   end
 end
-

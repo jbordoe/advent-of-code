@@ -12,7 +12,7 @@ defmodule Mix.Tasks.Aoc do
         strict: [day: :integer],
         aliases: [d: :day]
       )
-    
+
     "Elixir.Aoc22.Day#{args[:day]}"
     |> String.to_existing_atom()
     |> apply(:solve, [])
