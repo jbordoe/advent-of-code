@@ -1,10 +1,15 @@
-defmodule Aoc22.DayOne do
+defmodule Aoc22.Day1 do
   @moduledoc """
   Solution for Day One of Advent of Code
   https://adventofcode.com/2022/day/1
   """
 
-  def solution1(filepath) do
+  @default_filepath "priv/input/day_1.txt"
+  def solve do
+    [solution1(), solution2()]
+  end
+
+  def solution1(filepath \\ @default_filepath) do
     filepath
     |> File.stream!()
     |> Stream.map(&(String.trim_trailing(&1, "\n")))
@@ -15,7 +20,7 @@ defmodule Aoc22.DayOne do
     |> elem(0)
   end
 
-  def solution2(filepath) do
+  def solution2(filepath \\ @default_filepath) do
     filepath
     |> File.stream!()
     |> Stream.map(&(String.trim_trailing(&1, "\n")))
