@@ -6,30 +6,18 @@ defmodule Aoc22.Day4 do
   https://adventofcode.com/2022/day/4
   """
 
-  @default_filepath "priv/input/day_4.txt"
-
-  def solve do
-    [solution1(), solution2()]
-  end
-
-  def solution1(filepath \\ @default_filepath) do
-    filepath
-    |> prepare()
+  def solution1(input) do
+    input
+    |> Stream.map(&format/1)
     |> Stream.filter(&covered?/1)
     |> Enum.count()
   end
 
-  def solution2(filepath \\ @default_filepath) do
-    filepath
-    |> prepare()
+  def solution2(input) do
+    input
+    |> Stream.map(&format/1)
     |> Stream.filter(&overlap?/1)
     |> Enum.count()
-  end
-
-  defp prepare(filepath) do
-    filepath
-    |> stream_lines_from_file()
-    |> Stream.map(&format/1)
   end
 
   defp format(pair_str) do

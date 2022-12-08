@@ -10,14 +10,8 @@ defmodule Aoc22.Day8 do
     defstruct id: nil, height: nil
   end
 
-  @default_filepath "priv/input/day_8.txt"
-
-  def solve(filepath \\ @default_filepath) do
-    [solution1(filepath), solution2(filepath)]
-  end
-
-  def solution1(filepath) do
-    grid = grid_from_file(filepath)
+  def solution1(input) do
+    grid = to_grid(input)
 
     (grid ++ rotate(grid) ++ hflip(grid) ++ hflip(rotate(grid)))
     |> Enum.map(&visible/1)
@@ -25,8 +19,8 @@ defmodule Aoc22.Day8 do
     |> MapSet.size()
   end
 
-  def solution2(filepath) do
-    grid = grid_from_file(filepath)
+  def solution2(input) do
+    grid = to_grid(input)
 
     (grid ++ rotate(grid) ++ hflip(grid) ++ hflip(rotate(grid)))
     |> Enum.map(&vdists/1)
@@ -62,9 +56,8 @@ defmodule Aoc22.Day8 do
 
   defp vdists([], results), do: results
 
-  defp grid_from_file(filepath) do
-    filepath
-    |> stream_lines_from_file()
+  defp to_grid(lines) do
+    lines
     |> Enum.map(&String.graphemes/1)
     |> Enum.with_index()
     |> Enum.map(fn {row, i} ->

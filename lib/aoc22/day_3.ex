@@ -4,21 +4,13 @@ defmodule Aoc22.Day3 do
   https://adventofcode.com/2022/day/3
   """
 
-  @default_filepath "priv/input/day_3.txt"
-
   @priorities 1..26
               |> Enum.map(fn i -> [{<<i + 64>>, i + 26}, {<<i + 96>>, i}] end)
               |> List.flatten()
               |> Map.new()
 
-  def solve do
-    [solution1(), solution2()]
-  end
-
-  def solution1(filepath \\ @default_filepath) do
-    filepath
-    |> File.stream!()
-    |> Stream.map(&String.trim_trailing(&1, "\n"))
+  def solution1(input) do
+    input
     |> Stream.map(fn s ->
       s
       |> String.split_at(Integer.floor_div(String.length(s), 2))
@@ -28,10 +20,8 @@ defmodule Aoc22.Day3 do
     |> Enum.sum()
   end
 
-  def solution2(filepath \\ @default_filepath) do
-    filepath
-    |> File.stream!()
-    |> Stream.map(&String.trim_trailing(&1, "\n"))
+  def solution2(input) do
+    input
     |> Stream.chunk_every(3)
     |> Stream.map(&compare/1)
     |> Enum.sum()

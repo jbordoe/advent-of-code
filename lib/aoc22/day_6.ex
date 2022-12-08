@@ -6,7 +6,7 @@ defmodule Aoc22.Day6 do
   https://adventofcode.com/2022/day/6
   """
 
-  @default_filepath "priv/input/day_6.txt"
+  @default_filepath "priv/input/2022/day_6.txt"
 
   def solve(filepath \\ @default_filepath) do
     input = File.read!(filepath)

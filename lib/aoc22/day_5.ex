@@ -6,22 +6,16 @@ defmodule Aoc22.Day5 do
   https://adventofcode.com/2022/day/5
   """
 
-  @default_filepath "priv/input/day_5.txt"
-
-  def solve do
-    [solution1(), solution2()]
-  end
-
-  def solution1(filepath \\ @default_filepath) do
-    filepath
+  def solution1(input) do
+    input
     |> prepare()
     |> rearrange()
     |> Enum.map(&List.first/1)
     |> Enum.join()
   end
 
-  def solution2(filepath \\ @default_filepath) do
-    filepath
+  def solution2(input) do
+    input
     |> prepare()
     |> rearrange(true)
     |> Enum.map(&List.first/1)
@@ -45,12 +39,8 @@ defmodule Aoc22.Day5 do
     |> List.replace_at(to - 1, crates ++ Enum.at(stacks, to - 1))
   end
 
-  defp prepare(filepath) do
-    [crates, _, instructions] =
-      filepath
-      |> stream_lines_from_file()
-      |> Enum.chunk_by(&(&1 == ""))
-
+  defp prepare(input) do
+    [crates, _, instructions] = Enum.chunk_by(input, &(&1 == ""))
     {parse_crates(crates), parse_instructions(instructions)}
   end
 

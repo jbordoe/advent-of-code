@@ -4,6 +4,7 @@ defmodule Mix.Tasks.Aoc do
   https://adventofcode.com
   """
   use Mix.Task
+  use Helper
 
   def run(_) do
     {args, _} =
@@ -13,9 +14,11 @@ defmodule Mix.Tasks.Aoc do
         aliases: [d: :day, y: :year]
       )
 
-    "Elixir.Aoc#{args[:year]}.Day#{args[:day]}"
-    |> String.to_existing_atom()
-    |> apply(:solve, [])
+    %{year: year, day: day} = args
+    input = stream_lines_from_file("priv/input/20#{year}/day_#{day}.txt")
+    module = String.to_existing_atom("Elixir.Aoc#{year}.Day#{day}")
+    [:solution1, :solution2]
+    |> Enum.map(&(apply(module, &1, [input])))
     |> Enum.map(&IO.puts/1)
   end
 end

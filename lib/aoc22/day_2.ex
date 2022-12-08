@@ -4,8 +4,6 @@ defmodule Aoc22.Day2 do
   https://adventofcode.com/2022/day/2
   """
 
-  @default_filepath "priv/input/day_2.txt"
-
   @shape_scores %{
     # Rock
     "A" => 1,
@@ -21,13 +19,8 @@ defmodule Aoc22.Day2 do
     "Z" => "C"
   }
 
-  def solve do
-    [solution1(), solution2()]
-  end
-
-  def solution1(filepath \\ @default_filepath) do
-    filepath
-    |> File.stream!()
+  def solution1(input) do
+    input
     |> Stream.map(fn s ->
       [p1, p2] =
         s
@@ -40,9 +33,8 @@ defmodule Aoc22.Day2 do
     |> Enum.sum()
   end
 
-  def solution2(filepath \\ @default_filepath) do
-    filepath
-    |> File.stream!()
+  def solution2(input) do
+    input
     |> Stream.map(fn s ->
       {p1, p2} =
         s

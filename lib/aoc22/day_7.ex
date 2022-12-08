@@ -6,14 +6,6 @@ defmodule Aoc22.Day7 do
   https://adventofcode.com/2022/day/7
   """
 
-  @default_filepath "priv/input/day_7.txt"
-
-  def solve(filepath \\ @default_filepath) do
-    input = stream_lines_from_file(filepath)
-
-    [solution1(input), solution2(input)]
-  end
-
   def solution1(input) do
     input
     |> directory_sizes()
