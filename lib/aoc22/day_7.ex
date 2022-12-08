@@ -18,15 +18,15 @@ defmodule Aoc22.Day7 do
     input
     |> directory_sizes()
     |> Map.values()
-    |> Enum.filter(&(&1 <= 100000))
+    |> Enum.filter(&(&1 <= 100_000))
     |> Enum.sum()
-  end 
+  end
 
   def solution2(input) do
     totals = directory_sizes(input)
 
     %{["/"] => total_used} = totals
-    to_clear = total_used - 40000000
+    to_clear = total_used - 40_000_000
 
     totals
     |> Map.values()
@@ -34,7 +34,7 @@ defmodule Aoc22.Day7 do
     |> Enum.min()
   end
 
-  defp directory_sizes(input) do 
+  defp directory_sizes(input) do
     input
     |> Enum.reduce(%{totals: %{}, path: [], seen: MapSet.new(), ls: false}, &step/2)
     |> Map.get(:totals)
@@ -43,13 +43,15 @@ defmodule Aoc22.Day7 do
   defp step(<<"$", _rest::binary>> = line, %{ls: true, seen: seen, path: p} = acc) do
     step(line, %{acc | ls: false, seen: MapSet.put(seen, p)})
   end
+
   defp step("$ cd /", acc), do: %{acc | path: ["/"]}
-  defp step("$ cd ..", %{path: [_cwd|parent]} = acc), do: %{acc | path: parent}
-  defp step(<<"$ cd ", dir::binary>>, %{path: p} = acc), do: %{acc | path: [dir|p]}
+  defp step("$ cd ..", %{path: [_cwd | parent]} = acc), do: %{acc | path: parent}
+  defp step(<<"$ cd ", dir::binary>>, %{path: p} = acc), do: %{acc | path: [dir | p]}
 
   defp step("$ ls", acc), do: %{acc | ls: true}
+
   defp step(<<"dir ", dir::binary>>, %{path: p, totals: t} = acc) do
-    %{acc | totals: Map.update(t, [dir|p], 0, &(&1))}
+    %{acc | totals: Map.update(t, [dir | p], 0, & &1)}
   end
 
   defp step(line, %{path: path, totals: totals, seen: seen} = acc) do
@@ -62,9 +64,9 @@ defmodule Aoc22.Day7 do
     end
   end
 
-  defp update_totals(totals, [_|rest] = path, amt) do
+  defp update_totals(totals, [_ | rest] = path, amt) do
     update_totals(Map.update(totals, path, amt, &(&1 + amt)), rest, amt)
   end
+
   defp update_totals(totals, _path, _amt), do: totals
 end
-

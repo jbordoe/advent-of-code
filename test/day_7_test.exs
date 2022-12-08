@@ -9,9 +9,8 @@ defmodule Aoc22.Day7.Test do
   end
 
   test "#solution2 gets the right answer" do
-    assert 24933642 == Day7.solution2(input())
+    assert 24_933_642 == Day7.solution2(input())
   end
 
   defp input(), do: Helper.stream_lines_from_file("test/fixtures/day_7.txt")
 end
-

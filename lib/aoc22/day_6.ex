@@ -30,5 +30,5 @@ defmodule Aoc22.Day6 do
 
   defp uniq_add([], acc, c), do: [c | Enum.reverse(acc)]
   defp uniq_add([c | _rest], acc, c), do: [c | Enum.reverse(acc)]
-  defp uniq_add([h | rest], acc, c), do: uniq_add(rest, [h|acc], c)
+  defp uniq_add([h | rest], acc, c), do: uniq_add(rest, [h | acc], c)
 end
