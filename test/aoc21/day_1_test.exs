@@ -15,4 +15,3 @@ defmodule Aoc21.Day1.Test do
   
   defp input(), do: Helper.stream_lines_from_file(@fixture)
 end
-

@@ -25,4 +25,31 @@ defmodule Aoc21 do
     defp incr([h|t], _prev, tot), do: incr(t, h, tot)
     defp incr([], _, tot), do: tot
   end
+
+  defmodule Day2 do
+    def solution1(input) do
+      {hpos, depth, _} = 
+        input
+        |> Stream.map(&parse_line/1)
+        |> Enum.reduce({0,0,0}, &move/2)
+      hpos * depth
+    end
+
+    def solution2(input) do
+      {hpos,_aim,depth} = 
+        input
+        |> Stream.map(&parse_line/1)
+        |> Enum.reduce({0,0,0}, &move/2)
+      hpos * depth
+    end
+
+    defp move({"up", amt}, {x,y,z}), do: {x,y-amt,z}
+    defp move({"down", amt}, {x,y,z}), do: {x,y+amt,z}
+    defp move({"forward", amt}, {x,y,z}), do: {x+amt,y,z + (y*amt)}
+
+    defp parse_line(line) do
+      [direction, amt] = String.split(line)
+      {direction, String.to_integer(amt)}
+    end
+  end
 end
