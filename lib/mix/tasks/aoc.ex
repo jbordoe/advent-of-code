@@ -14,7 +14,7 @@ defmodule Mix.Tasks.Aoc do
         aliases: [d: :day, y: :year]
       )
 
-    %{year: year, day: day} = args
+    %{year: year, day: day} = Map.new(args)
     input = stream_lines_from_file("priv/input/20#{year}/day_#{day}.txt")
     module = String.to_existing_atom("Elixir.Aoc#{year}.Day#{day}")
     [:solution1, :solution2]
