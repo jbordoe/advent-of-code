@@ -1,11 +1,11 @@
-# 🎄Advent of Code 2022🎄
+# 🎄Advent of Code🎄
 
-Solutions to https://adventofcode.com/2022
+Solutions to https://adventofcode.com
 
 ## Example
 
 ```
-mix aoc --day=2
+mix aoc --year=22 --day=2
 ```
 
 ## Tests

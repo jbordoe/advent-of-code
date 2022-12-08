@@ -1,7 +1,7 @@
 defmodule Mix.Tasks.Aoc do
   @moduledoc """
   Run solution code for Advent of Code
-  https://adventofcode.com/2022/
+  https://adventofcode.com
   """
   use Mix.Task
 
@@ -9,11 +9,11 @@ defmodule Mix.Tasks.Aoc do
     {args, _} =
       System.argv()
       |> OptionParser.parse!(
-        strict: [day: :integer],
-        aliases: [d: :day]
+        strict: [day: :integer, year: :integer],
+        aliases: [d: :day, y: :year]
       )
 
-    "Elixir.Aoc22.Day#{args[:day]}"
+    "Elixir.Aoc#{args[:year]}.Day#{args[:day]}"
     |> String.to_existing_atom()
     |> apply(:solve, [])
     |> Enum.map(&IO.puts/1)
