@@ -24,3 +24,6 @@ aoc22-*.tar
 
 # Temporary files, for example, from tests.
 /tmp/
+
+# Ignore local input files
+/priv/input/
