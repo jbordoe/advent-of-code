@@ -9,21 +9,20 @@ defmodule Aoc21 do
     def solution1(input) do
       input
       |> Enum.map(&String.to_integer/1)
-      |> incr()
+      |> compare_windows(1)
     end
 
     def solution2(input) do
-      nums = Enum.map(input, &String.to_integer/1)
-      nums
-      |> Enum.zip(Enum.drop(nums, 3))
-      |> Enum.filter(fn {prev, val} -> val > prev end)
-      |> Kernel.length()
+      input
+      |> Enum.map(&String.to_integer/1)
+      |> compare_windows(3)
     end
 
-    defp incr([h|t]), do: incr(t, h, 0)
-    defp incr([h|t], prev, tot) when h > prev, do: incr(t, h, tot+1)
-    defp incr([h|t], _prev, tot), do: incr(t, h, tot)
-    defp incr([], _, tot), do: tot
+    defp compare_windows(nums, window_size) do
+      nums
+      |> Enum.zip(Enum.drop(nums, window_size))
+      |> Enum.count(fn {prev, val} -> val > prev end)
+    end
   end
 
   defmodule Day2 do
