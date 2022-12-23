@@ -49,40 +49,22 @@ defmodule Aoc22.Day21 do
         r < 0 and rd < r -> -1
       end
 
-    trunc(find_zero(vars, 1, 1, r, sign, :expand))
+    trunc(find_zero(vars, 1, 1, r, sign, 2))
   end
 
-  # expand: find one point above origin and one below
-  defp find_zero(vars, x, step, prev, sign, :expand) do
+  defp find_zero(vars, x, step, prev, sign, step_factor) do
+    next = max(1, step * step_factor) * sign
+    
     case resolve(Map.put(vars, "humn", x)) do
       0.0 ->
         x
 
       # origin is between this x and previous x
       r when (r > 0 and prev < 0) or (r < 0 and prev > 0) ->
-        next = max(1, step / 2) * sign
-        find_zero(vars, x - next, next, r, -sign, :desc)
+        find_zero(vars, x - next, next, r, -sign, 1/step_factor)
 
       r ->
-        next = step * 2 * sign
-        find_zero(vars, x + next, next, r, sign, :expand)
-    end
-  end
-
-  # descend: decrease window by half until origin is found
-  defp find_zero(vars, x, step, prev, sign, :desc) do
-    case resolve(Map.put(vars, "humn", x)) do
-      0.0 ->
-        x
-
-      # origin is between this x and previous x
-      r when (r > 0 and prev < 0) or (r < 0 and prev > 0) ->
-        next = max(1, step / 2) * sign
-        find_zero(vars, x - next, next, r, -sign, :desc)
-
-      r ->
-        next = max(1, step / 2) * sign
-        find_zero(vars, x + next, next, r, sign, :expand)
+        find_zero(vars, x + next, next, r, sign, step_factor)
     end
   end
 
