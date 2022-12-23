@@ -38,34 +38,12 @@ defmodule Aoc22.Day21 do
     |> find_humn()
   end
 
+  # we can treat root as a linear function so just get the gradient to find the origin
   defp find_humn(vars) do
     [r, rd] = Enum.map([0, 1], &resolve(Map.put(vars, "humn", &1)))
-
-    sign =
-      cond do
-        r > 0 and rd > r -> -1
-        r > 0 and rd < r -> 1
-        r < 0 and rd > r -> 1
-        r < 0 and rd < r -> -1
-      end
-
-    trunc(find_zero(vars, 1, 1, r, sign, 2))
-  end
-
-  defp find_zero(vars, x, step, prev, sign, step_factor) do
-    next = max(1, step * step_factor) * sign
+    drdx = rd - r
     
-    case resolve(Map.put(vars, "humn", x)) do
-      0.0 ->
-        x
-
-      # origin is between this x and previous x
-      r when (r > 0 and prev < 0) or (r < 0 and prev > 0) ->
-        find_zero(vars, x - next, next, r, -sign, 1/step_factor)
-
-      r ->
-        find_zero(vars, x + next, next, r, sign, step_factor)
-    end
+    -trunc(r / drdx)
   end
 
   defp resolve(vars), do: resolve(vars, "root")
@@ -75,4 +53,34 @@ defmodule Aoc22.Day21 do
   defp resolve(vars, {v1, "*", v2}), do: resolve(vars, v1) * resolve(vars, v2)
   defp resolve(vars, {v1, "/", v2}), do: resolve(vars, v1) / resolve(vars, v2)
   defp resolve(vars, var), do: resolve(vars, Map.get(vars, var))
+
+  #  defp find_humn(vars) do
+  #    [r, rd] = Enum.map([0, 1], &resolve(Map.put(vars, "humn", &1)))
+  #
+  #    sign =
+  #      cond do
+  #        r > 0 and rd > r -> -1
+  #        r > 0 and rd < r -> 1
+  #        r < 0 and rd > r -> 1
+  #        r < 0 and rd < r -> -1
+  #      end
+  #
+  #    trunc(find_zero(vars, 1, 1, r, sign, 2))
+  #  end
+  #
+  #  defp find_zero(vars, x, step, prev, sign, step_factor) do
+  #    next = max(1, steplib/aoc22/day_21.ex * step_factor) * sign
+  #    
+  #    case resolve(Map.put(vars, "humn", x)) do
+  #      0.0 ->
+  #        x
+  #
+  #      # origin is between this x and previous x
+  #      r when (r > 0 and prev < 0) or (r < 0 and prev > 0) ->
+  #        find_zero(vars, x - next, next, r, -sign, 1/step_factor)
+  #
+  #      r ->
+  #        find_zero(vars, x + next, next, r, sign, step_factor)
+  #    end
+  #  end
 end
