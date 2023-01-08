@@ -1,6 +1,6 @@
 # 🎄Advent of Code🎄
 
-Solutions to https://adventofcode.com
+Solutions to https://adventofcode.com in Elixir
 
 ## Example
 
