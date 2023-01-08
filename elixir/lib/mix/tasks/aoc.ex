@@ -18,7 +18,7 @@ defmodule Mix.Tasks.Aoc do
     profile = Keyword.get(args, :profile, false)
 
 
-    input = stream_lines_from_file("priv/input/20#{year}/day_#{day}.txt")
+    input = stream_lines_from_file("../priv/input/20#{year}/day_#{day}.txt")
     module = String.to_existing_atom("Elixir.Aoc#{year}.Day#{day}")
 
     if profile do
