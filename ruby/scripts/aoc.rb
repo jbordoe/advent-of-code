@@ -2,6 +2,8 @@ require "optparse"
 require "require_all"
 
 require_relative "../lib/aoc/2021/day_1"
+require_relative "../lib/aoc/2021/day_2"
+require_relative "../lib/aoc/2021/day_3"
 
 options = {}
 opts_parser = OptionParser.new do |opts|
