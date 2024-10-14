@@ -27,3 +27,6 @@ aoc-*.tar
 
 # Ignore local input files
 /priv/input/
+
+# Direnv
+.envrc
